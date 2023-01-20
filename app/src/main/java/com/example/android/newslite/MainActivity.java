@@ -1,9 +1,14 @@
 package com.example.android.newslite;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -32,23 +37,60 @@ public class MainActivity extends AppCompatActivity {
     private static final String url_url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=9473e83029a540c99eaae443015416e5";
     private ArrayList<newsClass> list = new ArrayList<>();
     private RecyclerView recyclerView;
+    private Toolbar toolbar;
+    private ConnectivityManager connectivityManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!CheckNetworkConnectivity())
+        {
+            Intent i = new Intent(MainActivity.this , Network_Fail.class);
+            startActivity(i);
+        }
+
         setContentView(R.layout.activity_main);
 //        Log.d( "onResponse: ", "harry");
+
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+       // if (getSupportActionBar() != null)
+       // {
+        //    getSupportActionBar().setDisplayHomeAsUpEnabled(true); //dont usein main homescreen
+      //  }
 
 
         recyclerView = findViewById(R.id.idRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         processing();
 
-//       list.add(new newsClass("faf", "Titel main point", "faf", "faf", "faf", "faf" , "hello  my name is harry potter harry potter"));
-//       customAdapter adapter = new customAdapter(getApplicationContext() , list);
-//       recyclerView.setAdapter(adapter);
 
+    }
 
+    private boolean CheckNetworkConnectivity() {
+
+        connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = connectivityManager.getActiveNetworkInfo();
+
+        if (info != null)
+        {
+            if(info.getType() == ConnectivityManager.TYPE_WIFI)
+            {
+                return true;
+            }if(info.getType() == ConnectivityManager.TYPE_MOBILE)
+            {
+                return true;
+            }
+
+        }
+        else
+        {
+            return false;
+        }
+
+        return false;
     }
 
     private void processing() {
