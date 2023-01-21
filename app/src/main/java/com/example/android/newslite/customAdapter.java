@@ -1,6 +1,7 @@
 package com.example.android.newslite;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +51,22 @@ public class customAdapter extends RecyclerView.Adapter<customAdapter.myView>
 
         //content
 
-        holder.content.setText(model.getContent());
+        holder.content.setText(model.getDescription());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context , ReadActivity.class);
+                intent.putExtra("titell" , model.getTitle());
+                intent.putExtra("image" , model.getUrlToImage());
+                intent.putExtra("discription" , model.getDescription());
+                intent.putExtra("Weburl" , model.getUrl());
+                String data = model.getContent();
+                intent.putExtra("content" , data);
+                context.startActivity(intent);
+
+            }
+        });
 
     }
 

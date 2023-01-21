@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -77,7 +78,6 @@ public class HomeFragment extends Fragment {
 
 
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText(stats[position])).attach();
-
 
 
     }

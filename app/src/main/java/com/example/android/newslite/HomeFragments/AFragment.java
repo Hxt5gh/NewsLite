@@ -1,5 +1,6 @@
 package com.example.android.newslite.HomeFragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -21,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.android.newslite.R;
+import com.example.android.newslite.ReadActivity;
 import com.example.android.newslite.customAdapter;
 import com.example.android.newslite.newsClass;
 import com.example.android.newslite.sourse;
@@ -46,6 +50,7 @@ public class AFragment extends Fragment {
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,9 +62,8 @@ public class AFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.idRecycleView);
+        recyclerView = view.findViewById(R.id.idRecycleViewA);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         processing();
     }
 

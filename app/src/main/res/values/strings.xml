@@ -4,4 +4,15 @@
     <string name="hello_mu_name_id_harry_potter">hello mu name id harry potter</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="random_text_1">
+        Hadoop is a data processing tool used to process large size data over distributed
+        commodity hardware. The trend of Big Data Hadoop market is on the boom and it’s
+        not showing any kind of deceleration in its growth. Today, industries are capable
+        of storing all the data generated at their business at an affordable price just
+        because of Hadoop. Hadoop helps the industry to know their customer’s behavior,
+        customers buying priorities i.e. what they loved the most, and click patterns,
+
+
+    </string>
 </resources>
