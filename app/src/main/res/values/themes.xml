@@ -19,4 +19,11 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <color name="BACKGROUND_COLOR">#FFFF</color>
+    <color name="TEXT_COLOR">#171616</color>
+
+    <color name="BACKGROUND_COLOR_Adapter">#171616</color>
+    <color name="TEXT_COLOR_Adapter">#FFFF</color>
+    <color name="WIFI_Icon">#0D0C0C</color>
 </resources>

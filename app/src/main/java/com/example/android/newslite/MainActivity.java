@@ -1,7 +1,9 @@
 package com.example.android.newslite;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,7 +13,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -22,6 +26,10 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.android.newslite.Fragments.HomeFragment;
+import com.example.android.newslite.Fragments.SearchFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,32 +47,52 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private Toolbar toolbar;
     private ConnectivityManager connectivityManager;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
+        //Setting toolbar
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //checking connectivity to internet
         if (!CheckNetworkConnectivity())
         {
             Intent i = new Intent(MainActivity.this , Network_Fail.class);
             startActivity(i);
         }
 
-        setContentView(R.layout.activity_main);
-//        Log.d( "onResponse: ", "harry");
+        //changing fragment home search
+        bottomNavigationView = findViewById(R.id.idBottomNavigationView);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.idHomeNav)
+                {
+                    FragmentTransaction manager = getSupportFragmentManager().beginTransaction();
+                    manager.replace(R.id.idframeLayout , new HomeFragment());
+                    manager.commit();
+                }
+                else if(id == R.id.idSearchNav)
+                {
+                    FragmentTransaction manager = getSupportFragmentManager().beginTransaction();
+                    manager.replace(R.id.idframeLayout , new SearchFragment());
+                    manager.commit();
+
+                }
+                return true;
+            }
+        });
+        bottomNavigationView.setSelectedItemId(R.id.idHomeNav);
 
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-       // if (getSupportActionBar() != null)
-       // {
-        //    getSupportActionBar().setDisplayHomeAsUpEnabled(true); //dont usein main homescreen
-      //  }
 
 
-        recyclerView = findViewById(R.id.idRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        processing();
+
 
 
     }
@@ -92,64 +120,4 @@ public class MainActivity extends AppCompatActivity {
 
         return false;
     }
-
-    private void processing() {
-
-        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
-
-        JsonObjectRequest bbb = new JsonObjectRequest(Request.Method.GET, url_url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                String out = response.toString();
-                Log.d("onResponse: " , out);
-                try {
-                    JSONArray articles = response.getJSONArray("articles");
-                    for(int i = 0 ; i < articles.length(); i++)
-                    {
-                        JSONObject jsonObject = articles.getJSONObject(i);
-
-                        JSONObject source = jsonObject.getJSONObject("source");
-
-                        String id= source.getString("id");
-                        String name= source.getString("name");
-
-                        String author = jsonObject.getString("author");
-                        String title = jsonObject.getString("title");
-                        String description = jsonObject.getString("description");
-                        String url = jsonObject.getString("url");
-                        String urlToImage = jsonObject.getString("urlToImage");
-                        String publishedAt = jsonObject.getString("publishedAt");
-                        String content = jsonObject.getString("content");
-
-                        list.add(new newsClass( new sourse(id , name) , author , title , description , url , urlToImage , publishedAt , content));
-
-
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                customAdapter adapter = new customAdapter(MainActivity.this , list);
-                recyclerView.setAdapter(adapter);
-
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("User-Agent", "Mozilla/5.0");
-                return params;
-            }
-        };
-
-        requestQueue.add(bbb);
-    }
-
-
 }

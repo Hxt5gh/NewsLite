@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/BACKGROUND_COLOR"
     tools:context=".Network_Fail">
 
 
@@ -27,6 +28,7 @@
         android:text="No Internet Found. Check your connection or try again"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:textColor="@color/TEXT_COLOR"
         app:layout_constraintBottom_toTopOf="@+id/re_try"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -40,7 +42,7 @@
         android:layout_marginBottom="180dp"
         android:background="@drawable/button_style"
         android:text="RETRY"
-        android:textColor="@color/black"
+        android:textColor="@color/TEXT_COLOR"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
