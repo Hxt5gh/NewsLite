@@ -39,15 +39,13 @@ public class FragmentAdapter extends FragmentStateAdapter {
             case 2: return new CFragment();
             case 3: return new DFragment();
             case 4: return new EFragment();
-            case 5: return new Fragment();
-            case 6: return new GFragment();
-            case 7: return new HFragment();
+
         }
         return new AFragment();
     }
 
     @Override
     public int getItemCount() {
-        return 8;
+        return 5;
     }
 }

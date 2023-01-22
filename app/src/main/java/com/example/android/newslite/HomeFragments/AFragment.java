@@ -95,7 +95,12 @@ public class AFragment extends Fragment {
                         String publishedAt = jsonObject.getString("publishedAt");
                         String content = jsonObject.getString("content");
 
+                        if(title != "null" && description != "null" && content != "null" )
+                        {
+                            Log.d( "insertcheck" , description);
                         list.add(new newsClass( new sourse(id , name) , author , title , description , url , urlToImage , publishedAt , content));
+                        }
+
 
 
                     }

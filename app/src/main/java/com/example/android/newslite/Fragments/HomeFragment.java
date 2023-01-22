@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
     ViewPager2 viewPager;
     FragmentAdapter fragmentAdapter;
 
-    private String[] stats = new String[] {"Counting" ,"Alfabets" , "Family" ,"harry" , "Potter"  ,"harry" , "Potter" ,"harry"  };
+    private String[] stats = new String[] {"Top News", "Health" , "Technology"  , "Sports" ,"Business"  };
 
     public HomeFragment() {
     }
