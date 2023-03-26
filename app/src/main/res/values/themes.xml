@@ -1,9 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.NewsLite" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">#9C27B0</item>
+        <item name="colorPrimaryVariant">#9C27B0</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -13,4 +14,16 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.NewsLite.NOBACKGROUND">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <color name="BACKGROUND_COLOR">#FFFF</color>
+    <color name="TEXT_COLOR">#171616</color>
+
+    <color name="BACKGROUND_COLOR_Adapter">#171616</color>
+    <color name="TEXT_COLOR_Adapter">#FFFF</color>
+    <color name="WIFI_Icon">#0D0C0C</color>
 </resources>

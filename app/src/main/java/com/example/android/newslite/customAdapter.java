@@ -1,6 +1,7 @@
 package com.example.android.newslite;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +16,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class customAdapter extends RecyclerView.Adapter<customAdapter.myView>
-{
+public class customAdapter extends RecyclerView.Adapter<customAdapter.myView> {
 
     Context context;
     ArrayList<newsClass> list;
@@ -29,7 +29,7 @@ public class customAdapter extends RecyclerView.Adapter<customAdapter.myView>
     @NonNull
     @Override
     public myView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_layour , parent , false);
+        View view = LayoutInflater.from(context).inflate(R.layout.list_layour, parent, false);
         return new myView(view);
     }
 
@@ -44,13 +44,29 @@ public class customAdapter extends RecyclerView.Adapter<customAdapter.myView>
 
         //image
 
-        String  url = model.getUrlToImage();
-        Log.d( "onBindViewHolder: " , url);
-        Glide.with(context).load(url).into(holder.image_View);
+        String url = model.getUrlToImage();
+            Glide.with(context).load(url).into(holder.image_View);
+            Log.d("onBindViewHolder: ", url);
+
 
         //content
 
-        holder.content.setText(model.getContent());
+        holder.content.setText(model.getDescription());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ReadActivity.class);
+                intent.putExtra("titell", model.getTitle());
+                intent.putExtra("image", model.getUrlToImage());
+                intent.putExtra("discription", model.getDescription());
+                intent.putExtra("Weburl", model.getUrl());
+                String data = model.getContent();
+                intent.putExtra("content", data);
+                context.startActivity(intent);
+
+            }
+        });
 
     }
 
@@ -59,9 +75,10 @@ public class customAdapter extends RecyclerView.Adapter<customAdapter.myView>
         return list.size();
     }
 
-    public  class myView extends RecyclerView.ViewHolder {
+    public class myView extends RecyclerView.ViewHolder {
         ImageView image_View;
-        TextView titel , content;
+        TextView titel, content;
+
         public myView(@NonNull View itemView) {
             super(itemView);
             image_View = itemView.findViewById(R.id.imageView);
